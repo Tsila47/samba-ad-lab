@@ -106,6 +106,7 @@ def add_to_group(args):
         print(f"ERREUR : {e}")
     conn.unbind_s()
 
+
 def main():
     parser = argparse.ArgumentParser(description="CLI de gestion Samba AD")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -138,7 +139,6 @@ def main():
         "list-members": list_members,
         "add-to-group": add_to_group,
     }[args.command](args)
-
 
 
 if __name__ == "__main__":

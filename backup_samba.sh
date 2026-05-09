@@ -17,12 +17,10 @@ log "=== Début du backup Samba AD ==="
 mkdir -p "$BACKUP_DIR"
 
 # Lance le backup
-samba-tool domain backup online \
+if samba-tool domain backup online \
     --server="$DC" \
     --targetdir="$BACKUP_DIR" \
-    -U "Administrator%${ADMIN_PASS}" >> "$LOG_FILE" 2>&1
-
-if [[ $? -eq 0 ]]; then
+    -U "Administrator%${ADMIN_PASS}" >> "$LOG_FILE" 2>&1; then
     log "OK : backup réussi"
 else
     log "ERREUR : le backup a échoué"
@@ -30,14 +28,10 @@ else
 fi
 
 # Rotation : supprime les anciens backups si on dépasse KEEP
-BACKUP_COUNT=$(ls -1 "$BACKUP_DIR"/*.tar.bz2 2>/dev/null | wc -l)
+BACKUP_COUNT=$(find "$BACKUP_DIR" -maxdepth 1 -name "*.tar.bz2" 2>/dev/null | wc -l)
 if [[ $BACKUP_COUNT -gt $KEEP ]]; then
     log "Rotation : $BACKUP_COUNT backups trouvés, conservation des $KEEP plus récents"
-    ls -1t "$BACKUP_DIR"/*.tar.bz2 | tail -n +$((KEEP + 1)) | while read -r old; do
-        log "  Suppression : $old"
-        rm -f "$old"
-    done
-fi
+    find "$BACKUP_DIR" -maxdepth 1 -name "*.tar.bz2" -printf "%T@ %p\n" | sort -rn | tail -n +$((KEEP + 1)) | cut -d' ' -f2- | while read -r old; do
 
-log "Backups présents : $(ls -1 "$BACKUP_DIR"/*.tar.bz2 | wc -l)"
+log "Backups présents : $(find "$BACKUP_DIR" -maxdepth 1 -name "*.tar.bz2" | wc -l)"
 log "=== Fin du backup ==="
