@@ -1,0 +1,3 @@
+ou_dn
+OU=Serveurs,OU=LAB,DC=lab,DC=local
+OU=Printers,OU=LAB,DC=lab,DC=local

@@ -1,0 +1,6 @@
+LDAP_URI    = "ldap://127.0.0.1"
+LDAP_BASE   = "DC=lab,DC=local"
+BIND_DN     = "Administrator@lab.local"
+BIND_PASS   = "Samba@bogosy2026!"
+OU_USERS    = "OU=Users,OU=LAB,DC=lab,DC=local"
+OU_GROUPS   = "OU=Groups,OU=LAB,DC=lab,DC=local"

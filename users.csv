@@ -1,0 +1,4 @@
+username,password,firstname,lastname,email,ou
+charlie,Paasw0rd!,Charlie,Durand,charlie@lab.local,OU=Users,OU=LAB
+diana,Passw0rd!,Diana,Leroy,diana@lab.local,OU=Users,OU=LAB
+dety,Passw0rd!,Dety,Rahary,dety@lab.local,OU=Users,OU=LAB

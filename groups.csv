@@ -1,0 +1,4 @@
+groupname|ou|description|members
+Admins-LAB|OU=Groups,OU=LAB|Administrateurs du LAB|alice:charlie
+Users-LAB|OU=Groups,OU=LAB|Utilisateurs standard|bob:diana:eve
+Dev-LAB|OU=Groups,OU=LAB|Equipe developpement|charlie:diana
