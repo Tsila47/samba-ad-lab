@@ -1,0 +1,42 @@
+name: CI — Samba AD Lab
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  shellcheck:
+    name: Vérification scripts Bash
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get install -y shellcheck
+
+      - name: Run shellcheck
+        run: |
+          shellcheck create_users.sh
+          shellcheck create_groups.sh
+          shellcheck create_ous.sh
+          shellcheck backup_samba.sh
+
+  python-lint:
+    name: Vérification CLI Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install flake8
+        run: pip install flake8
+
+      - name: Run flake8
+        run: |
+          flake8 cli/ad_cli.py cli/ldap_conn.py cli/config.py --max-line-length=100

@@ -1,6 +1,7 @@
 import ldap
 from config import LDAP_URI, BIND_DN, BIND_PASS
 
+
 def get_connection():
     ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
     conn = ldap.initialize(LDAP_URI)

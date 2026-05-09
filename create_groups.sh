@@ -10,16 +10,13 @@ fi
 
 tail -n +2 "$CSV_FILE" | while IFS='|' read -r groupname ou description members; do
     echo "Création du groupe : $groupname"
-    samba-tool group add "$groupname" \
-        --groupou="$ou" \
-        --description="$description" 2>&1
-
-    if [[ $? -eq 0 ]]; then
-        echo "  OK : groupe $groupname créé"
+    if samba-tool group add "$groupname" \
+       --groupou="$ou" \
+       --description="$description" 2>&1; then
+       echo " OK : groupe $groupname cree"
     else
-        echo "  ERREUR ou groupe déjà existant : $groupname"
+       echo "ERREUR ou groupe deja existant : $groupname"
     fi
-
     if [[ -n "$members" ]]; then
         IFS=':' read -ra member_list <<< "$members"
         for member in "${member_list[@]}"; do

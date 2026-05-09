@@ -17,7 +17,7 @@ tail -n +2 "$CSV_FILE" | while IFS=',' read -r username password firstname lastn
         --surname="$lastname" \
         --mail-address="$email" 2>&1
 
-    if [[ $? -eq 0 ]]; then
+    if some_command; then
         echo "  OK : $username créé"
     else
         echo "  ERREUR : $username non créé"
