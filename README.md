@@ -8,17 +8,18 @@ Mise en place d'un **Active Directory Domain Controller** complet avec Samba 4 s
 
 ## Architecture du lab
 
-```
-┌─────────────────────────────────┐
-│         dc01.lab.local          │
-│         192.168.56.101          │
-│                                 │
-│  OS  : Debian/Ubuntu            │
+```text
+┌─────────────────────────────────┐       ┌──────────────────────┐
+│         dc01.lab.local          │       │    win10.lab.local   │
+│         192.168.56.101          │◄────►│    192.168.56.103    │
+│                                 │       │      Windows 10      │
+│  OS  : Ubuntu Server            │       └──────────────────────┘
 │  Rôle: Samba AD DC              │
-│  DNS : Samba internal DNS       │
-│  KRB5: Kerberos (LAB.LOCAL)     │
-└─────────────────────────────────┘
-         Domaine : LAB.LOCAL
+│  DNS : Samba internal DNS       │       ┌──────────────────────┐
+│  KRB5: Kerberos (LAB.LOCAL)     │◄────►│   ubuntu.lab.local   │
+└─────────────────────────────────┘       │    192.168.56.102    │
+         Domaine : LAB.LOCAL              │    Ubuntu Desktop    │
+                                          └──────────────────────┘
 ```
 
 ---
@@ -37,7 +38,7 @@ Mise en place d'un **Active Directory Domain Controller** complet avec Samba 4 s
 | 7 | CLI Python LDAP + StartTLS | ✅ |
 | 8 | Backup + rotation automatique | ✅ |
 | 9a | Jonction Ubuntu Desktop (realm join + sssd) | ✅ |
-| 9b | Jonction Windows 10/11 | 🔜 dès que l'ISO est prête |
+| 9b | Jonction Windows 10/11 | ✅ |
 
 ---
 
@@ -161,7 +162,7 @@ sudo samba-tool user list
 ## Phase 9 — Jonction de clients
 
 - **Ubuntu Desktop** — jonction via `realm join` + `sssd` (✅ Validée)
-- **Windows 10/11** — jonction via Paramètres système (🔜 En attente d'ISO)
+- **Windows 10/11** — jonction via Paramètres système (✅ Validée)
 
 ---
 
