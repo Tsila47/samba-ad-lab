@@ -32,6 +32,10 @@ BACKUP_COUNT=$(find "$BACKUP_DIR" -maxdepth 1 -name "*.tar.bz2" 2>/dev/null | wc
 if [[ $BACKUP_COUNT -gt $KEEP ]]; then
     log "Rotation : $BACKUP_COUNT backups trouvés, conservation des $KEEP plus récents"
     find "$BACKUP_DIR" -maxdepth 1 -name "*.tar.bz2" -printf "%T@ %p\n" | sort -rn | tail -n +$((KEEP + 1)) | cut -d' ' -f2- | while read -r old; do
+        rm -f "$old"
+        log "Supprimé : $old"
+    done
+fi
 
 log "Backups présents : $(find "$BACKUP_DIR" -maxdepth 1 -name "*.tar.bz2" | wc -l)"
 log "=== Fin du backup ==="

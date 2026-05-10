@@ -5,7 +5,7 @@ import argparse
 import ldap
 import ldap.modlist as modlist
 from ldap_conn import get_connection
-from config import LDAP_BASE, OU_USERS, OU_GROUPS
+from config import OU_USERS, OU_GROUPS
 
 def list_users(args):
     conn = get_connection()
@@ -14,9 +14,9 @@ def list_users(args):
     print(f"\n{'Username':<20} {'Nom complet':<30} {'Email'}")
     print("-" * 65)
     for dn, attrs in results:
-        sam  = attrs.get("sAMAccountName", [b""])[0].decode()
-        cn   = attrs.get("cn",             [b""])[0].decode()
-        mail = attrs.get("mail",           [b"N/A"])[0].decode()
+        sam = attrs.get("sAMAccountName", [b""])[0].decode()
+        cn = attrs.get("cn", [b""])[0].decode()
+        mail = attrs.get("mail", [b"N/A"])[0].decode()
         print(f"{sam:<20} {cn:<30} {mail}")
     conn.unbind_s()
 
@@ -61,7 +61,7 @@ def list_groups(args):
     print(f"\n{'Groupe':<25} {'Description'}")
     print("-" * 55)
     for dn, attrs in results:
-        cn   = attrs.get("cn",          [b""])[0].decode()
+        cn = attrs.get("cn", [b""])[0].decode()
         desc = attrs.get("description", [b"N/A"])[0].decode()
         print(f"{cn:<25} {desc}")
     conn.unbind_s()
