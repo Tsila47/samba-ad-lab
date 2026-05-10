@@ -21,20 +21,21 @@ Mise en place d'un **Active Directory Domain Controller** complet avec Samba 4 s
 
 ---
 
-## Phases réalisées
+## Bilan complet du projet (Phase 9 Linux validée !)
 
 | Phase | Description | Statut |
 |-------|-------------|--------|
-| 0 | Préparation VM (réseau, hostname, horloge) | ✅ |
-| 1 | Installation paquets Samba | ✅ |
-| 2 | Provisioning du domaine | ✅ |
-| 3 | Configuration DNS + Kerberos | ✅ |
-| 4 | Démarrage et vérification | ✅ |
-| 5 | Création manuelle users/groupes/OUs | ✅ |
+| 0 | Préparation VM | ✅ |
+| 1 | Installation Samba | ✅ |
+| 2 | Provisioning du domaine LAB.LOCAL | ✅ |
+| 3 | DNS + Kerberos | ✅ |
+| 4 | Service opérationnel | ✅ |
+| 5 | Users/groupes/OUs manuels | ✅ |
 | 6 | Scripts Bash CSV-driven | ✅ |
-| 7 | CLI Python avec python-ldap | ✅ |
-| 8 | Backup automatisé avec rotation | ✅ |
-| 9 | Jonction client Windows + Ubuntu | 🔜 |
+| 7 | CLI Python LDAP + StartTLS | ✅ |
+| 8 | Backup + rotation automatique | ✅ |
+| 9a | Jonction Ubuntu Desktop (realm join + sssd) | ✅ |
+| 9b | Jonction Windows 10/11 | 🔜 dès que l'ISO est prête |
 
 ---
 
@@ -155,10 +156,10 @@ sudo samba-tool user list
 
 ---
 
-## Phase 9 — Jonction de clients (à venir)
+## Phase 9 — Jonction de clients
 
-- Windows 10/11 — jonction via Paramètres système
-- Ubuntu Desktop — jonction via `realm join` + `sssd`
+- **Ubuntu Desktop** — jonction via `realm join` + `sssd` (✅ Validée)
+- **Windows 10/11** — jonction via Paramètres système (🔜 En attente d'ISO)
 
 ---
 

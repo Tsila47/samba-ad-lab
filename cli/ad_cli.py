@@ -7,10 +7,11 @@ import ldap.modlist as modlist
 from ldap_conn import get_connection
 from config import OU_USERS, OU_GROUPS
 
+
 def list_users(args):
     conn = get_connection()
     results = conn.search_s(OU_USERS, ldap.SCOPE_SUBTREE,
-        "(objectClass=user)", ["cn", "mail", "sAMAccountName"])
+                            "(objectClass=user)", ["cn", "mail", "sAMAccountName"])
     print(f"\n{'Username':<20} {'Nom complet':<30} {'Email'}")
     print("-" * 65)
     for dn, attrs in results:
@@ -19,6 +20,7 @@ def list_users(args):
         mail = attrs.get("mail", [b"N/A"])[0].decode()
         print(f"{sam:<20} {cn:<30} {mail}")
     conn.unbind_s()
+
 
 def create_user(args):
     conn = get_connection()
@@ -42,10 +44,11 @@ def create_user(args):
         print(f"ERREUR : {e}")
     conn.unbind_s()
 
+
 def delete_user(args):
     conn = get_connection()
     results = conn.search_s(OU_USERS, ldap.SCOPE_SUBTREE,
-        f"(sAMAccountName={args.username})", ["dn"])
+                            f"(sAMAccountName={args.username})", ["dn"])
     if not results:
         print(f"ERREUR : '{args.username}' introuvable.")
         conn.unbind_s()
@@ -54,10 +57,11 @@ def delete_user(args):
     print(f"OK : utilisateur '{args.username}' supprimé.")
     conn.unbind_s()
 
+
 def list_groups(args):
     conn = get_connection()
     results = conn.search_s(OU_GROUPS, ldap.SCOPE_SUBTREE,
-        "(objectClass=group)", ["cn", "description"])
+                            "(objectClass=group)", ["cn", "description"])
     print(f"\n{'Groupe':<25} {'Description'}")
     print("-" * 55)
     for dn, attrs in results:
@@ -66,10 +70,11 @@ def list_groups(args):
         print(f"{cn:<25} {desc}")
     conn.unbind_s()
 
+
 def list_members(args):
     conn = get_connection()
     results = conn.search_s(OU_GROUPS, ldap.SCOPE_SUBTREE,
-        f"(cn={args.group})", ["member"])
+                            f"(cn={args.group})", ["member"])
     if not results:
         print(f"ERREUR : groupe '{args.group}' introuvable.")
         conn.unbind_s()
@@ -83,16 +88,17 @@ def list_members(args):
         print(f"  - {cn}")
     conn.unbind_s()
 
+
 def add_to_group(args):
     conn = get_connection()
     u = conn.search_s(OU_USERS, ldap.SCOPE_SUBTREE,
-        f"(sAMAccountName={args.username})", ["dn"])
+                      f"(sAMAccountName={args.username})", ["dn"])
     if not u:
         print(f"ERREUR : utilisateur '{args.username}' introuvable.")
         conn.unbind_s()
         return
     g = conn.search_s(OU_GROUPS, ldap.SCOPE_SUBTREE,
-        f"(cn={args.group})", ["dn"])
+                      f"(cn={args.group})", ["dn"])
     if not g:
         print(f"ERREUR : groupe '{args.group}' introuvable.")
         conn.unbind_s()
