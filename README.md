@@ -1,5 +1,7 @@
 # Samba AD DC Lab — Mini-projet personnel
 
+![CI](https://github.com/Tsila47/samba-ad-lab/actions/workflows/ci.yml/badge.svg)
+
 Mise en place d'un **Active Directory Domain Controller** complet avec Samba 4 sur Linux, accompagné d'outils d'administration Bash et d'une CLI Python via LDAP.
 
 ---
